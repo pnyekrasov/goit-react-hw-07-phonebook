@@ -8,32 +8,57 @@ const startContacts = [
   { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
 ];
 
-const contactsSlice = createSlice({
+const contactsSlice = {
   name: 'contacts',
-  initialState: startContacts,
+  initialState: {
+    items: startContacts,
+    isLoading: false,
+    error: null,
+  },
   reducers: {
-    addContact: {
-      reducer(state, action) {
-        state.push(action.payload);
-      },
-      prepare(values) {
-        return {
-          payload: {
-            id: nanoid(),
-            ...values,
-          },
-        };
-      },
+    fetchingInProgress(state) {
+      state.isLoading = true;
     },
-    deleteContact(state, action) {
-      return state.filter(contact => contact.id !== action.payload);
+    fetchingSuccess(state, action) {
+      state.isLoading = false;
+      state.error = null;
+      state.items = action.payload;
     },
-    resetContacts(state, action) {
-      return startContacts;
+    fetchingError(state, action) {
+      state.isLoading = false;
+      state.error = action.payload;
     },
   },
-});
+};
 
-export const { addContact, deleteContact, resetContacts } =
+// const contactsSlice = createSlice({
+//   name: 'contacts',
+//   initialState: startContacts,
+//   reducers: {
+//     addContact: {
+//       reducer(state, action) {
+//         state.push(action.payload);
+//       },
+//       prepare(values) {
+//         return {
+//           payload: {
+//             id: nanoid(),
+//             ...values,
+//           },
+//         };
+//       },
+//     },
+//     deleteContact(state, action) {
+//       return state.filter(contact => contact.id !== action.payload);
+//     },
+//     resetContacts(state, action) {
+//       return startContacts;
+//     },
+//   },
+// });
+export const { fetchingInProgress, fetchingSuccess, fetchingError } =
   contactsSlice.actions;
-export const contactsReducer = contactsSlice.reducer;
+
+// export const { addContact, deleteContact, resetContacts } =
+//   contactsSlice.actions;
+// export const contactsReducer = contactsSlice.reducer;
