@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
-export const ButtonReset = styled.button`
-  margin-bottom: 12px;
-`;
+// export const ButtonReset = styled.button`
+//   margin-bottom: 12px;
+// `;
 
 export const List = styled.ul`
   margin-top: 12px;

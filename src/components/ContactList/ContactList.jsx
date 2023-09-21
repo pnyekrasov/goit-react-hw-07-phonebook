@@ -1,13 +1,15 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { resetContacts } from 'redux/contactsSlice';
+import { useSelector } from 'react-redux';
+// import { useDispatch, useSelector } from 'react-redux';
+// import { resetContacts } from 'redux/contactsSlice';
 import { selectContacts, selectFilter } from 'redux/selectors';
 import { ContactItem } from 'components/ContactItem/ContactItem';
-import { ButtonReset, List, ListItem } from './ContactList.styled';
+import { List, ListItem } from './ContactList.styled';
+// import { ButtonReset, List, ListItem } from './ContactList.styled';
 
 export const ContactList = () => {
   const contacts = useSelector(selectContacts);
   const filter = useSelector(selectFilter);
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   const getVisibleContacts = () => {
     return contacts.filter(contact =>
@@ -19,7 +21,7 @@ export const ContactList = () => {
 
   return (
     <>
-      <ButtonReset
+      {/* <ButtonReset
         type="button"
         onClick={() => {
           if (
@@ -32,7 +34,7 @@ export const ContactList = () => {
         }}
       >
         Reset
-      </ButtonReset>
+      </ButtonReset> */}
       <p>Number of contacts:&nbsp;{contacts.length}</p>
       <List>
         {visibleContacts.map(item => (

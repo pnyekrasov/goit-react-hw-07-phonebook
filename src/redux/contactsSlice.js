@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { nanoid } from 'nanoid';
+
+import { fetchContacts, addContact, deleteContact } from './operations';
 
 const startContacts = [
   { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
@@ -8,28 +9,55 @@ const startContacts = [
   { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
 ];
 
-const contactsSlice = {
+const contactsSlice = createSlice({
   name: 'contacts',
   initialState: {
     items: startContacts,
     isLoading: false,
     error: null,
   },
-  reducers: {
-    fetchingInProgress(state) {
+  extraReducers: {
+    [fetchContacts.pending](state) {
       state.isLoading = true;
     },
-    fetchingSuccess(state, action) {
+    [fetchContacts.fulfilled](state, action) {
       state.isLoading = false;
       state.error = null;
       state.items = action.payload;
     },
-    fetchingError(state, action) {
+    [fetchContacts.rejected](state, action) {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
+    [addContact.pending](state) {
+      state.isLoading = true;
+    },
+    [addContact.fulfilled](state, action) {
+      state.isLoading = false;
+      state.error = null;
+      state.items.push(action.payload);
+    },
+    [addContact.rejected](state, action) {
       state.isLoading = false;
       state.error = action.payload;
     },
   },
-};
+  [deleteContact.pending](state) {
+    state.isLoading = true;
+  },
+  [deleteContact.fulfilled](state, action) {
+    state.isLoading = false;
+    state.error = null;
+    return state.filter(contact => contact.id !== action.payload);
+  },
+  [deleteContact.rejected](state, action) {
+    state.isLoading = false;
+    state.error = action.payload;
+  },
+  // resetContacts(state, action) {
+  //         return startContacts;
+  //       },
+});
 
 // const contactsSlice = createSlice({
 //   name: 'contacts',
@@ -56,9 +84,9 @@ const contactsSlice = {
 //     },
 //   },
 // });
-export const { fetchingInProgress, fetchingSuccess, fetchingError } =
-  contactsSlice.actions;
+// export const { fetchingInProgress, fetchingSuccess, fetchingError } =
+//   contactsSlice.actions;
 
 // export const { addContact, deleteContact, resetContacts } =
 //   contactsSlice.actions;
-// export const contactsReducer = contactsSlice.reducer;
+export const contactsReducer = contactsSlice.reducer;
