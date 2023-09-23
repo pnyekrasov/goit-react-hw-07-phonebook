@@ -22,6 +22,7 @@ const handleFetchContactsFulfilled = (state, action) => {
   state.isLoading = false;
   state.error = null;
   state.items = action.payload;
+  console.log(state.items);
 };
 
 const handleAddContactFulfilled = (state, action) => {
@@ -33,7 +34,7 @@ const handleAddContactFulfilled = (state, action) => {
 const handleDeleteContactFulfilled = (state, action) => {
   state.isLoading = false;
   state.error = null;
-  return state.filter(contact => contact.id !== action.payload);
+  state.items = state.items.filter(contact => contact.id !== action.payload.id);
 };
 
 const contactsSlice = createSlice({
