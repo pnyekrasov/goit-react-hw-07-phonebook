@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { addContact } from 'redux/operations';
+import { selectContacts } from 'redux/selectors';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import { selectContacts } from 'redux/selectors';
 import {
   Label,
   StyledForm,

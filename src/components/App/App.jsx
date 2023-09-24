@@ -1,15 +1,15 @@
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { fetchContacts } from 'redux/operations';
+import { useDispatch, useSelector } from 'react-redux';
 import { selectIsLoading, selectError } from 'redux/selectors';
 
-import { ContactForm } from './ContactForm/ContactForm';
-import { ContactList } from './ContactList/ContactList';
-import { Filter } from './Filter/Filter';
-import { Loader } from './Loader/Loader';
+import { ContactForm } from '../ContactForm/ContactForm';
+import { ContactList } from '../ContactList/ContactList';
+import { Filter } from '../Filter/Filter';
+import { Loader } from '../Loader/Loader';
 
 import { ContactsBook } from './App.staled';
-import {} from './ContactList/ContactList.styled';
+import {} from '../ContactList/ContactList.styled';
 
 export const App = () => {
   const dispatch = useDispatch();
